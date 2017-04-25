@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="description" content=""/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+   
+
+    <title>Admin</title>
+    
+    <style>
+  .carousel-inner > .item > img,
+  .carousel-inner > .item > a > img {
+      width: 70%;
+      margin: auto;
+  }
+  </style>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet"/>
+
+    <!-- Custom CSS -->
+    <link href="css/sb-admin.css" rel="stylesheet"/>
+
+    <!-- Custom Fonts -->
+    <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+
+    
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#"   onclick="document.getElementById('ajouter').style.display='none';document.getElementById('initial').style.display='block';document.getElementById('modifier').style.display='none'" >SB Admin</a>
+            </div>
+            <!-- Top Menu Items -->
+           
+            <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+             
+                <ul class="nav navbar-nav side-nav">
+              
+                    <li>
+                      <a href="#ajouter" onclick="document.getElementById('supprimer').style.display='none';document.getElementById('ajouter').style.display='block';document.getElementById('initial').style.display='none';document.getElementById('modifier').style.display='none';document.getElementById('deconnecter').style.display='none'" > Ajouter université</a>  
+                    </li>
+                    <li>
+                        <a href="#modifier" onclick="document.getElementById('supprimer').style.display='none';document.getElementById('modifier').style.display='block';document.getElementById('initial').style.display='none';document.getElementById('ajouter').style.display='none';document.getElementById('deconnecter').style.display='none'"  > modifier université</a>
+                    </li>
+                    <li>
+                        <a href="#supprimer" onclick="document.getElementById('modifier').style.display='none';document.getElementById('ajouter').style.display='none';document.getElementById('initial').style.display='none';document.getElementById('supprimer').style.display='block';document.getElementById('deconnecter').style.display='none'"> supprimer université</a>
+                    </li>
+                    <li>
+                       <a href="#deconnecter" onclick="document.getElementById('modifier').style.display='none';document.getElementById('ajouter').style.display='none';document.getElementById('initial').style.display='none';document.getElementById('supprimer').style.display='none';document.getElementById('deconnecter').style.display='block'">  Deconnecter</a> 
+                    </li>
+                    </ul>
+                   
+                                                                                                          
+            </div>
+           
+        </nav>
+
+        <div id="page-wrapper" >
+			
+			<div id="initial" style="display: block">  
+			
+								<div class="container" style="background-color: teal;">
+					  <br/>
+					  <div id="myCarousel" class="carousel slide" data-ride="carousel">
+					    <!-- Indicators -->
+					    <ol class="carousel-indicators">
+					      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+					      <li data-target="#myCarousel" data-slide-to="1"></li>
+					      <li data-target="#myCarousel" data-slide-to="2"></li>
+					      <li data-target="#myCarousel" data-slide-to="3"></li>
+					    </ol>
+					
+					    <!-- Wrapper for slides -->
+					    <div class="carousel-inner" role="listbox">
+					      <div class="item active">
+					        <img src="img/logo1.jpg" alt="Chania" width="460" height="345"/>
+					      </div>
+					
+					      <div class="item">
+					        <img src="img/logo2.jpg" alt="Chania" width="460" height="345"/>
+					      </div>
+					    
+					      <div class="item">
+					        <img src="img/logo3.jpg" alt="Flower" width="460" height="345"/>
+					      </div>
+					
+					      <div class="item">
+					        <img src="img/logo4.jpg" alt="Flower" width="460" height="345"/>
+					      </div>
+					    </div>
+					
+					    <!-- Left and right controls -->
+					    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+					      <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+					      <span class="sr-only">Previous</span>
+					    </a>
+					    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+					      <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+					      <span class="sr-only">Next</span>
+					    </a>
+					  </div>
+					</div>
+			
+			
+			
+			
+			
+			
+			
+			</div>
+			
+			
+								<form th:action="@{/ajouterUniversite}" method="post" id="ajouter" style="display: none">
+										
+										<div class="alert alert-success" th:if="${ok}">
+									    <strong>Success!</strong> université ajouté avev succès.
+									  </div>
+										
+											
+										<div>
+										
+											<label>nom:</label>
+											<input type="text" name="nom" />
+											
+										</div>
+										<hr/>
+										<label>région:</label>
+										<input type="text" name="region" />
+										<hr/>
+										
+										<b>Choisir les branches dans cette université</b>
+										<div>
+												<div class="checkbox">
+												      <label><input type="checkbox" value=""    onchange="document.getElementById('math').style.display='block'"/>mathématique</label>
+												 </div>
+												    <div class="checkbox">
+												      <label><input type="checkbox" value=""  onchange="document.getElementById('science').style.display='block'"/>Science</label>
+												    </div>
+												    <div class="checkbox ">
+												      <label><input type="checkbox" value=""  onchange="document.getElementById('info').style.display='block'" />Info</label>
+											    </div>
+											    <div class="checkbox ">
+												      <label><input type="checkbox" value=""  onchange="document.getElementById('lettre').style.display='block'" />Lettre</label>
+											    </div>
+											    <div class="checkbox ">
+												      <label><input type="checkbox" value="" onchange="document.getElementById('eco').style.display='block'" />Eco</label>
+											    </div>
+										</div>
+										
+										
+										<div id="math" style="display: none" >
+					
+											<label  >entrer le score du bac math :</label>
+											<input type="number" name="scoreMath"  min="120"/>
+											
+										</div>
+										<hr/>
+										
+										
+										<div id="science" style="display: none" >
+					
+											<label  >entrer le score du bac science :</label>
+											<input type="number" name="scoreScience" min="95"  />
+											
+										</div>
+										<hr/>
+										
+										
+										<div id="info" style="display: none">
+					
+											<label >entrer le score du bac info :</label>
+											<input type="number" name="scoreInfo" min="65" />
+											
+										</div>
+										<hr/>
+										<div id="lettre" style="display: none">
+					
+											<label >entrer le score du bac lettre :</label>
+											<input type="number" name="scoreLettre" min="50"  />
+											
+										</div>
+										<hr/>
+					
+										<div id="eco" style="display: none">
+					
+											<label >entrer le score du bac eco :</label>
+											<input type="number" name="scoreEco" min="55"  />
+											
+										</div>
+										
+										<button type="submit" class="btn btn-primary">Save</button>
+										
+										</form>
+										
+										<form th:action="@{/modifierUniversite}" id="modifier" style="display: none" >
+										
+										<div class="alert alert-success" th:if="${modificationTermine}" th:text="${modificationTermine}">
+									    
+									  	</div>
+									  
+										<label >nom:</label>
+										<input type="text" name="nomModif" th:value="${nomU}" />
+										
+										
+										<hr/>
+										
+										<div th:if="${scoreU}">
+											<label  >entrer le score du bac math :</label>
+											<input type="number" name="scoreMathModif"  min="120" th:value="${scoreU.scoreMath}"/>
+											
+										
+										<hr/>
+										
+										
+										
+					
+											<label  >entrer le score du bac science :</label>
+											<input type="number" name="scoreScienceModif" min="95" th:value="${scoreU.scoreScience}"  />
+											
+										
+										<hr/>
+										
+										
+										
+											<div th:if="${scoreU.scoreInfo} ne '1000'">
+											<label >entrer le score du bac info :</label>
+											<input type="number" name="scoreInfoModif" min="65"  th:value="${scoreU.scoreInfo}"/>
+											<hr/>
+											</div>
+										
+										
+										
+					
+											<label >entrer le score du bac lettre :</label>
+											<input type="number" name="scoreLettreModif" min="50" th:value="${scoreU.scoreLettre}" />
+											
+										
+										<hr/>
+					
+										
+										<div th:if="${scoreU.scoreEco} ne 1000">
+											<label >entrer le score du bac eco :</label>
+											<input type="number" name="scoreEcoModif" min="55" th:value="${scoreU.scoreEco}" />
+										</div>	
+										
+										
+										
+										<hr/>
+										</div>
+										<div class="text-danger" th:if="${erreurModif}" th:text="${erreurModif}"  ></div>
+										
+										<button type="submit" class="btn btn-primary" name="visualiser">Visualiser</button>
+										<button type="submit" class="btn btn-primary" th:if="${scoreU}" name="valider">valider</button>
+										<hr/>
+										 
+										<div class="text-success" th:if="${modificationTermine}" th:text="${modificationTermine}"   ></div>
+										
+										
+										
+										</form>
+										
+										<form th:action="@{/supprimerUniversite}" method="post" id="supprimer" style="display: none">
+										
+										
+										<div class="alert alert-success" th:if="${SuppressionTermine}" th:text="${SuppressionTermine}"> </div>
+										
+										<div>
+										
+											<label>nom à supprimer :</label>
+											<input type="text" name="nomSupp" />
+											<button type="submit" class="btn btn-primary" name="visualiser">valider</button>
+										</div>
+										
+										
+										
+										
+									    
+									  	
+										</form>
+										
+										<form th:action="@{/deconnecter}" id="deconnecter" style="display: none">
+										
+										<h1>Voulez vous vraiment déconnecter ?</h1>
+										
+										<button type="submit" class="btn btn-primary" >valider</button>
+										</form>
+											
+											
+											
+										
+			
+			
+			
+        </div>
+     
+
+    </div>
+   
+
+    
+    
+    
+    
+    
+    
+    <script src="js/jquery.js"></script>
+
+   
+    <script src="js/bootstrap.min.js"></script>
+
+</body>
+
+</html>
